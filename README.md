@@ -1,6 +1,6 @@
-# interest_rate_flutter_app
+# UV Index Flutter App
 
-A new Flutter project.
+A Flutter prototype project for displaying UV Index data based on location in New Zealand.
 
 ## Getting Started
 
