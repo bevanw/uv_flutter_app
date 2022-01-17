@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:uv_flutter_app/apis/uv_index.dart';
 
 /// Retrieves UV Index forecast for sunny/cloudy days using [latitude] and [longitude] postioning.
 ///
@@ -18,7 +19,8 @@ Future<UVForecast> fetchUVForecast(double latitude, double longitude) async {
   if (response.statusCode == 200) {
     return UVForecast.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Status: ${response.statusCode} Body: ${response.body.toString()}');
+    throw Exception(
+        'Status: ${response.statusCode} Body: ${response.body.toString()}');
   }
 }
 
@@ -63,29 +65,18 @@ class UVForecast {
   /// Helpful reference: https://www.bezkoder.com/dart-flutter-parse-json-string-array-to-object-list/
   factory UVForecast.fromJson(dynamic json) {
     return UVForecast(
-      clearSky: ((json['products'] as Iterable).firstWhere((element) => element['name'] == 'clear_sky_uv_index')['values'] as Iterable)
-          .map((indexJson) => UVIndex.fromJson(indexJson))
-          .toList(),
-      cloudySky: ((json['products'] as Iterable).firstWhere((element) => element['name'] == 'cloudy_sky_uv_index')['values'] as Iterable)
-          .map((indexJson) => UVIndex.fromJson(indexJson))
-          .toList(),
+      clearSky: fetchUVListFromJson(json, 'clear_sky_uv_index'),
+      cloudySky: fetchUVListFromJson(json, 'cloudy_sky_uv_index'),
     );
   }
-}
 
-class UVIndex {
-  final DateTime time;
-  final num value;
-
-  UVIndex({
-    required this.time,
-    required this.value,
-  });
-
-  factory UVIndex.fromJson(Map<String, dynamic> json) {
-    return UVIndex(
-      time: DateTime.parse(json['time'].toString()),
-      value: json['value'],
-    );
+  static List<UVIndex> fetchUVListFromJson(dynamic json, String nameFilter) {
+    return ((json['products'] as Iterable).firstWhere(
+            (element) => element['name'] == nameFilter)['values'] as Iterable)
+        .map((indexJson) => UVIndex(
+              time: DateTime.parse(indexJson['time'].toString()),
+              value: indexJson['value'],
+            ))
+        .toList();
   }
 }

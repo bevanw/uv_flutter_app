@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../apis/uv_current_svg_service.dart';
+import '../../apis/uv_index.dart';
+import '../../apis/uv_index_service.dart';
 
 class UVIndexTab extends StatefulWidget {
   const UVIndexTab({Key? key}) : super(key: key);
@@ -11,21 +11,21 @@ class UVIndexTab extends StatefulWidget {
 }
 
 class _UVIndexTab extends State<UVIndexTab> {
-  late Future<SvgPicture> futureUvIndex;
+  late Future<UVIndex> futureUvIndex;
 
   @override
   void initState() {
     super.initState();
-    futureUvIndex = fetchUVIndexSvg(-39, 174, SkyTypes.clear);
+    futureUvIndex = fetchUVIndex(-39, 174, SkyTypes.clear);
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SvgPicture>(
+    return FutureBuilder<UVIndex>(
       future: futureUvIndex,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return snapshot.data!;
+          return Text(snapshot.data!.toString());
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }

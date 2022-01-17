@@ -1,6 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
+import '../../apis/uv_index.dart';
 import '../../apis/uv_time_series_service.dart';
 
 class UVIndexChartTab extends StatefulWidget {
