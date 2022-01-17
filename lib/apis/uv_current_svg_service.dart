@@ -15,7 +15,7 @@ Future<SvgPicture> fetchUVIndexSvg(double latitude, double longitude, SkyTypes s
 
   if (response.statusCode == 200) {
     // Unfortunately SvnPicture.string() does not support the following in the svg returned:
-    // font-weight="bold" awddaw
+    // font-weight="bold"
     final svg = response.body.replaceAll(RegExp("font-weight=\"bold\"", caseSensitive: false), "font-weight=\"700\"");
     return SvgPicture.string(svg);
   } else {
