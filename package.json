@@ -1,0 +1,17 @@
+{
+    "dependencies": {
+    },
+    "devDependencies": {
+    },
+    "scripts": {
+      "Verify Flutter Install": "flutter doctor",
+      "Clean": "flutter clean && rd /s /q coverage",
+      "Analyse": "flutter analyze",
+      "Test": "flutter test --coverage",
+      "Run Chrome": "flutter run -d chrome",
+      "Sync Packages": "flutter pub get",
+      "Upgrade Packages": "flutter pub upgrade",
+      "Upgrade Flutter": "flutter upgrade"
+    }
+  }
+  
