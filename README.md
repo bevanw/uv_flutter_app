@@ -18,3 +18,10 @@ samples, guidance on mobile development, and a full API reference.
 ## Scripts
 
 package.json contains helpful flutter scripts using npm.
+
+## Environment
+
+Set up a .env file and add the following:
+```
+NIWA_API_KEY=<API_KEY_HERE>
+```

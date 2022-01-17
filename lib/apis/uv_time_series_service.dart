@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 /// Retrieves UV Index forecast for sunny/cloudy days using [latitude] and [longitude] postioning.
@@ -10,7 +11,7 @@ Future<UVForecast> fetchUVForecast(double latitude, double longitude) async {
   final response = await http.get(
     Uri.parse('https://api.niwa.co.nz/uv/data?lat=$latitude&long=$longitude'),
     headers: {
-      'x-apikey': 'MJiVkz4dsl35BkeXbpGdTZGgq6vywsGp',
+      'x-apikey': dotenv.get('NIWA_API_KEY'),
     },
   );
 

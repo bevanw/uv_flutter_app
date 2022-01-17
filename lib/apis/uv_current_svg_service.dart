@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,7 +10,7 @@ Future<SvgPicture> fetchUVIndexSvg(double latitude, double longitude, SkyTypes s
   final response = await http.get(
     Uri.parse('https://api.niwa.co.nz/uv/current.svg?lat=$latitude&long=$longitude&sky=$skyType'),
     headers: {
-      'x-apikey': 'MJiVkz4dsl35BkeXbpGdTZGgq6vywsGp',
+      'x-apikey': dotenv.get('NIWA_API_KEY'),
     },
   );
 
