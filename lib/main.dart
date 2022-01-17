@@ -6,7 +6,7 @@ import 'routes.dart';
 import 'views/settings_view.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load();
   runApp(const MyApp());
 }
 
