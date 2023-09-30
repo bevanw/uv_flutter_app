@@ -1,14 +1,14 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
-import '../../apis/uv_index.dart';
-import '../../apis/uv_time_series_service.dart';
+import '../../apis/models/uv_forecast.dart';
+import '../../apis/uv_forecast_service.dart';
 
 class UVIndexChartTab extends StatefulWidget {
   const UVIndexChartTab({Key? key}) : super(key: key);
 
   @override
-  _UVIndexChartTab createState() => _UVIndexChartTab();
+  State<UVIndexChartTab> createState() => _UVIndexChartTab();
 }
 
 class _UVIndexChartTab extends State<UVIndexChartTab> {
@@ -17,7 +17,7 @@ class _UVIndexChartTab extends State<UVIndexChartTab> {
   @override
   void initState() {
     super.initState();
-    futureForecast = fetchUVForecast(-39, 174);
+    futureForecast = fetchUVForecast(-37, 175);
   }
 
   @override

@@ -20,9 +20,16 @@ samples, guidance on mobile development, and a full API reference.
 
 package.json contains helpful flutter scripts using npm.
 
-## Environment
+## APIs
+- [NIWA APIs](https://developer.niwa.co.nz/apis)
 
-Set up a .env file and add the following:
+## Environmental Variables
+
+Information on environmental variables in Flutter can be found [here](https://itnext.io/secure-your-flutter-project-the-right-way-to-set-environment-variables-with-compile-time-variables-67c3163ff9f4).
+
+In `packages.json`, ensure each `run` command has the argument `--dart-define-from-file=.env`.
+
+For local development, et up a .env file and add the following:
 ```
 NIWA_API_KEY=<API_KEY_HERE>
 ```

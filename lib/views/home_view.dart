@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'home_tabs/uv_index_chart.dart';
 import 'home_tabs/uv_index.dart';
+import 'home_tabs/uv_index_chart.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  _HomeView createState() => _HomeView();
+  State<HomeView> createState() => _HomeView();
 }
 
 class _HomeView extends State<HomeView> {

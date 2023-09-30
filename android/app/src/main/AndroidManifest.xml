@@ -1,9 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.uv_flutter_app">
-    <!-- Required to fetch data from the internet. -->
-    <uses-permission android:name="android.permission.INTERNET" />
-   <application
-        android:label="uv_flutter_app"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="flutter_tes"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
