@@ -10,7 +10,8 @@ class UVForecast {
   /// Fetches a specific [UVIndex] by [skyType]
   UVIndex fetchUvIndex(SkyTypes skyType) {
     switch (skyType) {
-      // TODO: Fetch UV index by hour?
+      // TODO: Fetch UV index by hour? Then update uv_index.dart (view) to show the current UV index.
+      // TODO: Also get unit/integration tests working.
       case SkyTypes.clear:
         return clearSky[1];
       case SkyTypes.cloudy:

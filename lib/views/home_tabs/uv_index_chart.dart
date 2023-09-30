@@ -1,4 +1,4 @@
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:charts_flutter/flutter.dart' as charts; // TODO: Change to use a new nice chart? Material design?
 import 'package:flutter/material.dart';
 
 import '../../apis/models/uv_forecast.dart';
