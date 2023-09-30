@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../apis/models/uv_forecast.dart';
-import '../../apis/uv_forecast_service.dart';
+import '../../apis/models/uv_index.dart';
+import '../../apis/uv_index_service.dart';
 
 class UVIndexTab extends StatefulWidget {
   const UVIndexTab({Key? key}) : super(key: key);
@@ -11,17 +11,17 @@ class UVIndexTab extends StatefulWidget {
 }
 
 class _UVIndexTab extends State<UVIndexTab> {
-  late Future<UVForecast> futureUvIndex;
+  late Future<UVIndex> futureUvIndex;
 
   @override
   void initState() {
     super.initState();
-    futureUvIndex = fetchUVForecast(-37, 175);
+    futureUvIndex = fetchUVIndex(-37, 175, SkyTypes.clear);
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<UVForecast>(
+    return FutureBuilder<UVIndex>(
       future: futureUvIndex,
       builder: (context, snapshot) {
         if (snapshot.hasData) {

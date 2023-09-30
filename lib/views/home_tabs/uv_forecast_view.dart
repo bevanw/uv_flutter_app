@@ -1,8 +1,11 @@
-import 'package:charts_flutter/flutter.dart' as charts; // TODO: Change to use a new nice chart? Material design?
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 import '../../apis/models/uv_forecast.dart';
+import '../../apis/models/uv_index.dart';
 import '../../apis/uv_forecast_service.dart';
+
+// TODO: Change to use a new nice chart? Material design?
 
 class UVIndexChartTab extends StatefulWidget {
   const UVIndexChartTab({Key? key}) : super(key: key);
@@ -45,22 +48,21 @@ class UVIndexChart extends StatelessWidget {
 
   /// Creates a [UVIndexChart] with UV data.
   factory UVIndexChart.fromUVData(UVForecast forecast) {
+    var todaysForecast = forecast.fetchForecastByDay(DateTime.now());
     return UVIndexChart([
       charts.Series<UVIndex, DateTime>(
         id: 'ClearSkyData',
         displayName: 'Clear Skies UV Index',
-        seriesColor: charts.MaterialPalette.black,
         domainFn: (UVIndex index, _) => index.time,
         measureFn: (UVIndex index, _) => index.value,
-        data: forecast.clearSky,
+        data: todaysForecast.clearSky,
       ),
       charts.Series<UVIndex, DateTime>(
         id: 'CloudySkyData',
         displayName: 'Cloudy Skies UV Index',
-        seriesColor: charts.MaterialPalette.black,
         domainFn: (UVIndex index, _) => index.time,
         measureFn: (UVIndex index, _) => index.value,
-        data: forecast.cloudySky,
+        data: todaysForecast.cloudySky,
       )
     ]);
   }

@@ -1,3 +1,5 @@
+import 'uv_index.dart';
+
 class UVForecast {
   final List<UVIndex> clearSky;
   final List<UVIndex> cloudySky;
@@ -7,30 +9,62 @@ class UVForecast {
     required this.cloudySky,
   });
 
-  /// Fetches a specific [UVIndex] by [skyType]
-  UVIndex fetchUvIndex(SkyTypes skyType) {
-    switch (skyType) {
-      // TODO: Fetch UV index by hour? Then update uv_index.dart (view) to show the current UV index.
-      // TODO: Also get unit/integration tests working.
-      case SkyTypes.clear:
-        return clearSky[1];
-      case SkyTypes.cloudy:
-        return cloudySky[1];
-    }
+  /// Maps the [response] in raw JSON to the [UVForecast]
+  /// Response Structure
+  /// {@tool snippet}
+  /// ```dart
+  /// {
+  ///   "products": [
+  ///     {
+  ///       "values": [
+  ///         {
+  ///           "time": "2022-01-16T00:00:00.000Z",
+  ///           "value": 12.2892
+  ///         }
+  ///       ],
+  ///       "name": "clear_sky_uv_index"
+  ///     },
+  ///     {
+  ///       "values": [
+  ///         {
+  ///           "time": "2022-01-16T00:00:00.000Z",
+  ///           "value": 11.2901
+  ///         }
+  ///       ],
+  ///       "name": "cloudy_sky_uv_index"
+  ///     }
+  ///   ],
+  ///   "coord": "EPSG:4326,-39.0,174.0"
+  /// }
+  /// ```
+  /// {@end-tool}
+  ///
+  /// JSON reference:
+  /// https://www.bezkoder.com/dart-flutter-parse-json-string-array-to-object-list/
+  factory UVForecast.fromJson(dynamic response) {
+    return UVForecast(
+      clearSky: _fetchUVListFromJson(response, 'clear_sky_uv_index'),
+      cloudySky: _fetchUVListFromJson(response, 'cloudy_sky_uv_index'),
+    );
   }
-}
 
-class UVIndex {
-  final DateTime time;
-  final num value;
+  /// Fetches a [UVForecast] for a specifc date using a [date]
+  UVForecast fetchForecastByDay(DateTime date) {
+    // TODO: Brings back today and yestedays data??
+    return UVForecast(
+        clearSky:
+            clearSky.where((index) => index.time.day == date.day).toList(),
+        cloudySky:
+            cloudySky.where((index) => index.time.day == date.day).toList());
+  }
 
-  UVIndex({
-    required this.time,
-    required this.value,
-  });
-}
-
-enum SkyTypes {
-  cloudy,
-  clear,
+  static List<UVIndex> _fetchUVListFromJson(Map json, String nameFilter) {
+    return ((json['products'] as Iterable).firstWhere(
+            (element) => element['name'] == nameFilter)['values'] as Iterable)
+        .map((indexJson) => UVIndex(
+              time: DateTime.parse(indexJson['time'].toString()),
+              value: indexJson['value'],
+            ))
+        .toList();
+  }
 }

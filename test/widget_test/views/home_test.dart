@@ -10,12 +10,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:uv_flutter_app/views/home_view.dart';
 
-import '../helpers/test_helpers.dart';
+// TODO: Get unit/integration tests working then test APIs.
 
 void main() {
   testWidgets('default to UV Index view', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(createTestWidget(const HomeView()));
+    await tester.pumpWidget(const HomeView());
 
     // Expectation
     expect(find.text('Index 0: UV Index'), findsOneWidget);
@@ -23,7 +23,7 @@ void main() {
 
   testWidgets('select UV Graphs tab', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(createTestWidget(const HomeView()));
+    await tester.pumpWidget(const HomeView());
 
     // Select the ASB tab.
     // Tap the add button.

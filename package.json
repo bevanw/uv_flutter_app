@@ -5,7 +5,6 @@
     },
     "scripts": {
       "Run Windows": "flutter run -d windows --dart-define-from-file=.env",
-      "Run Chrome": "flutter run -d chrome --dart-define-from-file=.env",
       "Test": "flutter test --coverage",
       "Clean": "flutter clean && rd /s /q coverage",
       "Analyse": "flutter analyze",
