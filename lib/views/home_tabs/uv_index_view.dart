@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../apis/models/uv_index.dart';
-import '../../apis/uv_index_service.dart';
+import '../../apis/niwa/models/skye_types.dart';
+import '../../apis/niwa/models/uv_index.dart';
+import '../../providers/http_providers.dart';
 
-class UVIndexTab extends StatefulWidget {
+class UVIndexTab extends ConsumerStatefulWidget {
   const UVIndexTab({Key? key}) : super(key: key);
 
   @override
-  State<UVIndexTab> createState() => _UVIndexTab();
+  ConsumerState<UVIndexTab> createState() => _UVIndexTab();
 }
 
-class _UVIndexTab extends State<UVIndexTab> {
+class _UVIndexTab extends ConsumerState<UVIndexTab> {
   late Future<UVIndex> futureUvIndex;
 
   @override
   void initState() {
     super.initState();
-    futureUvIndex = fetchUVIndex(-37, 175, SkyTypes.clear);
+    final niwaApiService = ref.watch(niwaApiServiceProvider);
+    futureUvIndex = niwaApiService.fetchUVIndex(-37, 175, SkyTypes.clear);
   }
 
   @override

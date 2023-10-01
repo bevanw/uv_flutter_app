@@ -1,0 +1,4 @@
+enum SkyTypes {
+  cloudy,
+  clear,
+}

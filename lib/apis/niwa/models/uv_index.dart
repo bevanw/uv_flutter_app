@@ -29,7 +29,7 @@ class UVIndex {
         .firstWhere((element) => element.getAttribute('y') == '220')
         .childElements
         .firstWhere((element) => element.getAttribute('class') == 'value')
-        .innerText
+        .value!
         .split(' ')[0];
     return UVIndex(time: DateTime.now(), value: num.parse(uvIndex));
   }

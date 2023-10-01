@@ -1,26 +1,28 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../apis/models/uv_forecast.dart';
-import '../../apis/models/uv_index.dart';
-import '../../apis/uv_forecast_service.dart';
+import '../../apis/niwa/models/uv_forecast.dart';
+import '../../apis/niwa/models/uv_index.dart';
+import '../../providers/http_providers.dart';
 
 // TODO: Change to use a new nice chart? Material design?
 
-class UVIndexChartTab extends StatefulWidget {
+class UVIndexChartTab extends ConsumerStatefulWidget {
   const UVIndexChartTab({Key? key}) : super(key: key);
 
   @override
-  State<UVIndexChartTab> createState() => _UVIndexChartTab();
+  ConsumerState<UVIndexChartTab> createState() => _UVIndexChartTab();
 }
 
-class _UVIndexChartTab extends State<UVIndexChartTab> {
+class _UVIndexChartTab extends ConsumerState<UVIndexChartTab> {
   late Future<UVForecast> futureForecast;
 
   @override
   void initState() {
     super.initState();
-    futureForecast = fetchUVForecast(-37, 175);
+    final niwaApiService = ref.watch(niwaApiServiceProvider);
+    futureForecast = niwaApiService.fetchUVForecast(-37, 175);
   }
 
   @override
