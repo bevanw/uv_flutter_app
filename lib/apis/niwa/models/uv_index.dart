@@ -1,4 +1,5 @@
 import 'package:xml/xml.dart';
+import 'package:xml/xpath.dart';
 
 class UVIndex {
   final DateTime time;
@@ -23,14 +24,8 @@ class UVIndex {
   /// ```
   /// {@end-tool}
   factory UVIndex.fromWSvgXml(XmlDocument svgXml) {
-    // TODO: Change to XPath
-    final uvIndex = svgXml
-        .findAllElements('text')
-        .firstWhere((element) => element.getAttribute('y') == '220')
-        .childElements
-        .firstWhere((element) => element.getAttribute('class') == 'value')
-        .value!
-        .split(' ')[0];
+    final uvValue = svgXml.xpath('/svg/text[@y="220"]/tspan[@class="value"]');
+    final uvIndex = uvValue.first.innerText.split(' ')[0];
     return UVIndex(time: DateTime.now(), value: num.parse(uvIndex));
   }
 }

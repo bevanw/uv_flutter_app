@@ -6,8 +6,6 @@ import '../../apis/niwa/models/uv_forecast.dart';
 import '../../apis/niwa/models/uv_index.dart';
 import '../../providers/http_providers.dart';
 
-// TODO: Change to use a new nice chart? Material design?
-
 class UVIndexChartTab extends ConsumerStatefulWidget {
   const UVIndexChartTab({Key? key}) : super(key: key);
 
@@ -75,35 +73,16 @@ class UVIndexChart extends StatelessWidget {
 
         // Allow enough space in the left and right chart margins for the
         // annotations.
-        layoutConfig: charts.LayoutConfig(
-            leftMarginSpec: charts.MarginSpec.fixedPixel(60),
-            topMarginSpec: charts.MarginSpec.fixedPixel(20),
-            rightMarginSpec: charts.MarginSpec.fixedPixel(60),
-            bottomMarginSpec: charts.MarginSpec.fixedPixel(20)),
+        layoutConfig: charts.LayoutConfig(leftMarginSpec: charts.MarginSpec.fixedPixel(60), topMarginSpec: charts.MarginSpec.fixedPixel(20), rightMarginSpec: charts.MarginSpec.fixedPixel(60), bottomMarginSpec: charts.MarginSpec.fixedPixel(20)),
         behaviors: [
           // Define one domain and two measure annotations configured to render
           // labels in the chart margins.
           charts.RangeAnnotation([
-            charts.RangeAnnotationSegment(
-                0, 3, charts.RangeAnnotationAxisType.measure,
-                middleLabel: 'Low',
-                color: charts.MaterialPalette.green.shadeDefault.lighter),
-            charts.RangeAnnotationSegment(
-                3, 6, charts.RangeAnnotationAxisType.measure,
-                middleLabel: 'Moderate',
-                color: charts.MaterialPalette.yellow.shadeDefault.lighter),
-            charts.RangeAnnotationSegment(
-                6, 8, charts.RangeAnnotationAxisType.measure,
-                middleLabel: 'High',
-                color: charts.MaterialPalette.deepOrange.shadeDefault.lighter),
-            charts.RangeAnnotationSegment(
-                8, 11, charts.RangeAnnotationAxisType.measure,
-                middleLabel: 'Very High',
-                color: charts.MaterialPalette.red.shadeDefault.lighter),
-            charts.RangeAnnotationSegment(
-                11, 14, charts.RangeAnnotationAxisType.measure,
-                middleLabel: 'Extreme',
-                color: charts.MaterialPalette.purple.shadeDefault.lighter),
+            charts.RangeAnnotationSegment(0, 3, charts.RangeAnnotationAxisType.measure, middleLabel: 'Low', color: charts.MaterialPalette.green.shadeDefault.lighter),
+            charts.RangeAnnotationSegment(3, 6, charts.RangeAnnotationAxisType.measure, middleLabel: 'Moderate', color: charts.MaterialPalette.yellow.shadeDefault.lighter),
+            charts.RangeAnnotationSegment(6, 8, charts.RangeAnnotationAxisType.measure, middleLabel: 'High', color: charts.MaterialPalette.deepOrange.shadeDefault.lighter),
+            charts.RangeAnnotationSegment(8, 11, charts.RangeAnnotationAxisType.measure, middleLabel: 'Very High', color: charts.MaterialPalette.red.shadeDefault.lighter),
+            charts.RangeAnnotationSegment(11, 14, charts.RangeAnnotationAxisType.measure, middleLabel: 'Extreme', color: charts.MaterialPalette.purple.shadeDefault.lighter),
           ], defaultLabelPosition: charts.AnnotationLabelPosition.margin),
         ]);
   }
