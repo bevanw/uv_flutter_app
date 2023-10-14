@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uv_flutter_app/constants/type_scale.dart';
 
-import '../../apis/niwa/models/skye_types.dart';
 import '../../apis/niwa/models/uv_index.dart';
-import '../../providers/http_providers.dart';
+import '../../providers/api_providers.dart';
 
 class UVIndexTab extends ConsumerStatefulWidget {
   const UVIndexTab({Key? key}) : super(key: key);
@@ -13,29 +15,48 @@ class UVIndexTab extends ConsumerStatefulWidget {
 }
 
 class _UVIndexTab extends ConsumerState<UVIndexTab> {
-  late Future<UVIndex> futureUvIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    final niwaApiService = ref.watch(niwaApiServiceProvider);
-    futureUvIndex = niwaApiService.fetchUVIndex(-37, 175, SkyTypes.clear);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<UVIndex>(
-      future: futureUvIndex,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Text(snapshot.data!.toString());
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
+    final AsyncValue<UVIndex> uvIndexAsyncValue = ref.watch(uvIndexProvider);
 
-        // By default, show a loading spinner.
-        return const CircularProgressIndicator();
+    return uvIndexAsyncValue.when(
+      data: (uvIndex) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Transform.rotate(
+                    angle: -0.8 * pi, // Progress from 8 o'clock to 4 o'clock
+                    child: CircularProgressIndicator(
+                      strokeWidth: 15,
+                      color: uvIndex.getUvColour(),
+                      backgroundColor: uvIndex.getUvColour().withOpacity(0.2),
+                      strokeCap: StrokeCap.round,
+                      value: (uvIndex.index / UVIndex.maxIndex * 0.8).clamp(0.0, 0.8),
+                    ),
+                  ),
+                ),
+                Text(
+                  uvIndex.index.toString(),
+                  style: TypeScale.h1.copyWith(color: uvIndex.getUvColour()),
+                ),
+              ],
+            ),
+            const SizedBox(height: 40),
+            const Text(
+              "UV Index",
+              style: TypeScale.h3,
+            ),
+          ],
+        );
       },
+      loading: () => const CircularProgressIndicator(),
+      error: (error, stackTrace) => Text('Error: $error'),
     );
   }
 }

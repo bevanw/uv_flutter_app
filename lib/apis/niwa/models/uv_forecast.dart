@@ -50,20 +50,21 @@ class UVForecast {
 
   /// Fetches a [UVForecast] for a specifc date using a [date]
   UVForecast fetchForecastByDay(DateTime date) {
-    // TODO: Brings back today and yestedays data??
     return UVForecast(
-        clearSky:
-            clearSky.where((index) => index.time.day == date.day).toList(),
-        cloudySky:
-            cloudySky.where((index) => index.time.day == date.day).toList());
+      clearSky: clearSky.where((index) => _isSameDay(index.time, date)).toList(),
+      cloudySky: cloudySky.where((index) => _isSameDay(index.time, date)).toList(),
+    );
+  }
+
+  static bool _isSameDay(DateTime dateTime1, DateTime dateTime2) {
+    return dateTime1.year == dateTime2.year && dateTime1.month == dateTime2.month && dateTime1.day == dateTime2.day;
   }
 
   static List<UVIndex> _fetchUVListFromJson(Map json, String nameFilter) {
-    return ((json['products'] as Iterable).firstWhere(
-            (element) => element['name'] == nameFilter)['values'] as Iterable)
+    return ((json['products'] as Iterable).firstWhere((element) => element['name'] == nameFilter)['values'] as Iterable)
         .map((indexJson) => UVIndex(
-              time: DateTime.parse(indexJson['time'].toString()),
-              value: indexJson['value'],
+              time: DateTime.parse(indexJson['time'].toString()).toLocal(),
+              index: indexJson['value'],
             ))
         .toList();
   }

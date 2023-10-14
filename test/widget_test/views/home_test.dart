@@ -6,7 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:uv_flutter_app/views/home_view.dart';
 
 import '../../extensions/tester_extensions.dart';

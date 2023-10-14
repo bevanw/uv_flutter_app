@@ -21,7 +21,7 @@ class _HomeView extends State<HomeView> {
 
   static const List<Widget> _pages = <Widget>[
     UVIndexTab(),
-    UVIndexChartTab(),
+    UVForecastTab(),
   ];
 
   @override

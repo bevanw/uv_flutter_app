@@ -4,85 +4,73 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../apis/niwa/models/uv_forecast.dart';
 import '../../apis/niwa/models/uv_index.dart';
-import '../../providers/http_providers.dart';
+import '../../providers/api_providers.dart';
 
-class UVIndexChartTab extends ConsumerStatefulWidget {
-  const UVIndexChartTab({Key? key}) : super(key: key);
+class UVForecastTab extends ConsumerStatefulWidget {
+  const UVForecastTab({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<UVIndexChartTab> createState() => _UVIndexChartTab();
+  ConsumerState<UVForecastTab> createState() => _UVForecastTab();
 }
 
-class _UVIndexChartTab extends ConsumerState<UVIndexChartTab> {
-  late Future<UVForecast> futureForecast;
-
-  @override
-  void initState() {
-    super.initState();
-    final niwaApiService = ref.watch(niwaApiServiceProvider);
-    futureForecast = niwaApiService.fetchUVForecast(-37, 175);
-  }
-
+class _UVForecastTab extends ConsumerState<UVForecastTab> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<UVForecast>(
-      future: futureForecast,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return UVIndexChart.fromUVData(snapshot.data!);
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
+    final AsyncValue<UVForecast> uvForecastAsyncValue = ref.watch(uvForecastProvider);
 
-        // By default, show a loading spinner.
-        return const CircularProgressIndicator();
+    return uvForecastAsyncValue.when(
+      data: (uvForecast) {
+        return UVForecastChart.fromUVData(uvForecast);
       },
+      loading: () => const CircularProgressIndicator(),
+      error: (error, stackTrace) => Text('Error: $error'),
     );
   }
 }
 
-class UVIndexChart extends StatelessWidget {
+class UVForecastChart extends StatelessWidget {
   final List<charts.Series<UVIndex, DateTime>> seriesList;
 
-  const UVIndexChart(this.seriesList, {Key? key}) : super(key: key);
+  const UVForecastChart(this.seriesList, {Key? key}) : super(key: key);
 
-  /// Creates a [UVIndexChart] with UV data.
-  factory UVIndexChart.fromUVData(UVForecast forecast) {
+  /// Creates a [UVForecastChart] with UV data.
+  factory UVForecastChart.fromUVData(UVForecast forecast) {
     var todaysForecast = forecast.fetchForecastByDay(DateTime.now());
-    return UVIndexChart([
+    return UVForecastChart([
       charts.Series<UVIndex, DateTime>(
         id: 'ClearSkyData',
         displayName: 'Clear Skies UV Index',
         domainFn: (UVIndex index, _) => index.time,
-        measureFn: (UVIndex index, _) => index.value,
+        measureFn: (UVIndex index, _) => index.index,
         data: todaysForecast.clearSky,
       ),
       charts.Series<UVIndex, DateTime>(
         id: 'CloudySkyData',
         displayName: 'Cloudy Skies UV Index',
         domainFn: (UVIndex index, _) => index.time,
-        measureFn: (UVIndex index, _) => index.value,
+        measureFn: (UVIndex index, _) => index.index,
         data: todaysForecast.cloudySky,
       )
     ]);
   }
 
+  static charts.Color fromDartColor(Color color) {
+    return charts.Color(r: color.red, g: color.green, b: color.blue, a: color.withOpacity(0.1).alpha);
+  }
+
   @override
   Widget build(BuildContext context) {
     return charts.TimeSeriesChart(seriesList,
-
-        // Allow enough space in the left and right chart margins for the
-        // annotations.
-        layoutConfig: charts.LayoutConfig(leftMarginSpec: charts.MarginSpec.fixedPixel(60), topMarginSpec: charts.MarginSpec.fixedPixel(20), rightMarginSpec: charts.MarginSpec.fixedPixel(60), bottomMarginSpec: charts.MarginSpec.fixedPixel(20)),
+        // Allow enough space in the left and right chart margins for the annotations.
+        layoutConfig: charts.LayoutConfig(leftMarginSpec: charts.MarginSpec.fixedPixel(80), topMarginSpec: charts.MarginSpec.fixedPixel(40), rightMarginSpec: charts.MarginSpec.fixedPixel(80), bottomMarginSpec: charts.MarginSpec.fixedPixel(40)),
         behaviors: [
-          // Define one domain and two measure annotations configured to render
-          // labels in the chart margins.
+          // Define one domain and two measure annotations configured to render labels in the chart margins.
           charts.RangeAnnotation([
-            charts.RangeAnnotationSegment(0, 3, charts.RangeAnnotationAxisType.measure, middleLabel: 'Low', color: charts.MaterialPalette.green.shadeDefault.lighter),
-            charts.RangeAnnotationSegment(3, 6, charts.RangeAnnotationAxisType.measure, middleLabel: 'Moderate', color: charts.MaterialPalette.yellow.shadeDefault.lighter),
-            charts.RangeAnnotationSegment(6, 8, charts.RangeAnnotationAxisType.measure, middleLabel: 'High', color: charts.MaterialPalette.deepOrange.shadeDefault.lighter),
-            charts.RangeAnnotationSegment(8, 11, charts.RangeAnnotationAxisType.measure, middleLabel: 'Very High', color: charts.MaterialPalette.red.shadeDefault.lighter),
-            charts.RangeAnnotationSegment(11, 14, charts.RangeAnnotationAxisType.measure, middleLabel: 'Extreme', color: charts.MaterialPalette.purple.shadeDefault.lighter),
+            charts.RangeAnnotationSegment(0, 3, charts.RangeAnnotationAxisType.measure, middleLabel: 'Low', color: fromDartColor(UVIndex.low)),
+            charts.RangeAnnotationSegment(3, 6, charts.RangeAnnotationAxisType.measure, middleLabel: 'Moderate', color: fromDartColor(UVIndex.moderate)),
+            charts.RangeAnnotationSegment(6, 8, charts.RangeAnnotationAxisType.measure, middleLabel: 'High', color: fromDartColor(UVIndex.high)),
+            charts.RangeAnnotationSegment(8, 11, charts.RangeAnnotationAxisType.measure, middleLabel: 'Very High', color: fromDartColor(UVIndex.veryHigh)),
+            charts.RangeAnnotationSegment(11, 14, charts.RangeAnnotationAxisType.measure, middleLabel: 'Extreme', color: fromDartColor(UVIndex.extreme)),
           ], defaultLabelPosition: charts.AnnotationLabelPosition.margin),
         ]);
   }
