@@ -1,6 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uv_flutter_app/apis/niwa/models/skye_types.dart';
 
 import '../../apis/niwa/models/uv_forecast.dart';
 import '../../apis/niwa/models/uv_index.dart';
@@ -16,7 +17,7 @@ class UVForecastTab extends ConsumerStatefulWidget {
 class _UVForecastTab extends ConsumerState<UVForecastTab> {
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<UVForecast> uvForecastAsyncValue = ref.watch(uvForecastProvider);
+    final AsyncValue<UVForecast> uvForecastAsyncValue = ref.watch(uvForecastProvider(NiwaApiServiceParameters(latitude: -35, longitude: 175, skyTypes: SkyTypes.clear)));
 
     return uvForecastAsyncValue.when(
       data: (uvForecast) {
