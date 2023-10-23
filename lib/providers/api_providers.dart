@@ -6,12 +6,12 @@ import '../apis/niwa/models/skye_types.dart';
 import '../apis/niwa/models/uv_index.dart';
 import '../apis/niwa/niwa_api_service.dart';
 
-class NiwaApiServiceParameters {
+class UVParameters {
   final double latitude;
   final double longitude;
   final SkyTypes skyTypes;
 
-  NiwaApiServiceParameters({
+  UVParameters({
     required this.latitude,
     required this.longitude,
     this.skyTypes = SkyTypes.clear,
@@ -29,12 +29,12 @@ final niwaApiServiceProvider = Provider<NiwaApiService>((ref) {
   return NiwaApiService(httpClient, apiKey);
 });
 
-final uvIndexProvider = FutureProvider.autoDispose.family<UVIndex, NiwaApiServiceParameters>((ref, apiParameters) async {
+final uvIndexProvider = FutureProvider.family<UVIndex, UVParameters>((ref, apiParameters) async {
   final niwaApiService = ref.read(niwaApiServiceProvider);
   return niwaApiService.fetchUVIndex(apiParameters.latitude, apiParameters.longitude, apiParameters.skyTypes);
 });
 
-final uvForecastProvider = FutureProvider.autoDispose.family<UVForecast, NiwaApiServiceParameters>((ref, apiParameters) async {
+final uvForecastProvider = FutureProvider.family<UVForecast, UVParameters>((ref, apiParameters) async {
   final niwaApiService = ref.read(niwaApiServiceProvider);
   return niwaApiService.fetchUVForecast(apiParameters.latitude, apiParameters.longitude);
 });

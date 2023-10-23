@@ -6,7 +6,8 @@ import '../../providers/api_providers.dart';
 import '../../widgets/data_visualizations/circular_gauge_chart.dart';
 
 class UVIndexTab extends ConsumerStatefulWidget {
-  const UVIndexTab({Key? key}) : super(key: key);
+  final UVParameters uvParameters;
+  const UVIndexTab({Key? key, required this.uvParameters}) : super(key: key);
 
   @override
   ConsumerState<UVIndexTab> createState() => _UVIndexTab();
@@ -15,18 +16,18 @@ class UVIndexTab extends ConsumerStatefulWidget {
 class _UVIndexTab extends ConsumerState<UVIndexTab> {
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<UVIndex> uvIndexAsyncValue = ref.watch(uvIndexProvider(NiwaApiServiceParameters(latitude: -35, longitude: 175)));
+    final AsyncValue<UVIndex> uvIndexAsyncValue = ref.watch(uvIndexProvider(widget.uvParameters));
 
     return uvIndexAsyncValue.when(
       data: (uvIndex) {
         return Transform.scale(
           scale: 1.5,
           child: CircularGaugeChart(
-            progress: uvIndex.index / UVIndex.maxIndex * 0.8,
+            progress: uvIndex.index / UVIndex.maxIndex,
             progressColor: uvIndex.getUvColour(),
             progressBackgroundColor: uvIndex.getUvColour(),
             icon: Icons.sunny,
-            gaugeText: uvIndex.index.toString(),
+            gaugeTitle: uvIndex.index.toString(),
             gaugeSubtitleText: "UV Index",
           ),
         );
