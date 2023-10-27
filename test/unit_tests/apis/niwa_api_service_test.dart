@@ -48,7 +48,7 @@ void main() {
       final uvIndex = await niwaApiService.fetchUVIndex(1, 1, SkyTypes.cloudy);
 
       uvIndex.shouldNotBeNull();
-      uvIndex.getUvColour().shouldBeEqualTo(UVIndex.veryHigh);
+      uvIndex.getUvColour().shouldBeEqualTo(UVIndex.veryHigh.color);
     });
 
     test('uv forecast should be returned', () async {

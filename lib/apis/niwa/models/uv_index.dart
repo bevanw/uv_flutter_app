@@ -6,12 +6,13 @@ class UVIndex {
   final DateTime time;
   final num index;
 
-  static const Color low = Colors.green;
-  static const Color moderate = Colors.yellow;
-  static const Color high = Colors.orange;
-  static const Color veryHigh = Colors.red;
-  static const Color extreme = Colors.purple;
+  static final UVRange low = UVRange(color: Colors.green, min: minIndex, max: 3);
+  static final UVRange moderate = UVRange(color: Colors.yellow, min: 4, max: 6);
+  static final UVRange high = UVRange(color: Colors.orange, min: 7, max: 8);
+  static final UVRange veryHigh = UVRange(color: Colors.red, min: 9, max: 11);
+  static final UVRange extreme = UVRange(color: Colors.purple, min: 12, max: maxIndex);
 
+  static const num minIndex = 0;
   static const num maxIndex = 14;
 
   UVIndex({
@@ -40,25 +41,28 @@ class UVIndex {
 
   /// Returns the [Color] associated with the current index.
   Color getUvColour() {
-    switch (index) {
-      case 0:
-      case 1:
-      case 2:
-      case 3:
-        return UVIndex.low;
-      case 4:
-      case 5:
-      case 6:
-        return UVIndex.moderate;
-      case 7:
-      case 8:
-        return UVIndex.high;
-      case 9:
-      case 10:
-      case 11:
-        return UVIndex.veryHigh;
-      default:
-        return UVIndex.extreme;
+    if (index < low.max) {
+      return low.color;
+    } else if (index < moderate.max) {
+      return moderate.color;
+    } else if (index < high.max) {
+      return high.color;
+    } else if (index < veryHigh.max) {
+      return veryHigh.color;
+    } else {
+      return extreme.color;
     }
   }
+}
+
+class UVRange {
+  final Color color;
+  final num min;
+  final num max;
+
+  UVRange({
+    required this.color,
+    required this.min,
+    required this.max,
+  });
 }
