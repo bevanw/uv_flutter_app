@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:uv_flutter_app/providers/api_providers.dart';
 
 import '../apis/niwa/models/skye_types.dart';
-import 'home_tabs/uv_index_view.dart';
-import 'home_tabs/uv_forecast_view.dart';
+import 'tabs/uv_index_view.dart';
+import 'tabs/uv_forecast_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
