@@ -6,10 +6,11 @@ import 'package:uv_flutter_app/apis/niwa/models/skye_types.dart';
 import '../../apis/niwa/models/uv_forecast.dart';
 import '../../apis/niwa/models/uv_index.dart';
 import '../../providers/api_providers.dart';
+import '../../widgets/selection_chip.dart';
 
 class UVForecastTab extends ConsumerStatefulWidget {
   final UVParameters uvParameters;
-  const UVForecastTab({Key? key, required this.uvParameters}) : super(key: key);
+  const UVForecastTab({super.key, required this.uvParameters});
 
   @override
   ConsumerState<UVForecastTab> createState() => _UVForecastTab();
@@ -39,10 +40,10 @@ class UVForecastChart extends StatefulWidget {
   final List<UVIndex> cloudySkyData;
 
   const UVForecastChart({
-    Key? key,
+    super.key,
     required this.clearSkyData,
     required this.cloudySkyData,
-  }) : super(key: key);
+  });
 
   @override
   State<UVForecastChart> createState() => _UVForecastChartState();
@@ -86,7 +87,6 @@ class _UVForecastChartState extends State<UVForecastChart> {
             child: LineChart(
               LineChartData(
                 minX: 0,
-                maxX: 24,
                 minY: 0,
                 maxY: UVIndex.maxIndex.toDouble(),
                 titlesData: const FlTitlesData(
@@ -140,12 +140,12 @@ class _UVForecastChartState extends State<UVForecastChart> {
           Wrap(
             spacing: 10,
             children: [
-              FilterChip(
+              SelectionChip(
                 label: const Text('Clear Sky'),
                 selected: skyTypeFilter == SkyTypes.clear,
                 onSelected: updateClearSkySelected,
               ),
-              FilterChip(
+              SelectionChip(
                 label: const Text('Cloudy Sky'),
                 selected: skyTypeFilter == SkyTypes.cloudy,
                 onSelected: updateCloudySkySelected,

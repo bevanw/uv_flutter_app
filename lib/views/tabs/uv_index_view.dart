@@ -7,7 +7,7 @@ import '../../widgets/data_visualizations/circular_gauge_chart.dart';
 
 class UVIndexTab extends ConsumerStatefulWidget {
   final UVParameters uvParameters;
-  const UVIndexTab({Key? key, required this.uvParameters}) : super(key: key);
+  const UVIndexTab({super.key, required this.uvParameters});
 
   @override
   ConsumerState<UVIndexTab> createState() => _UVIndexTab();

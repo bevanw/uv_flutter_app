@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      scrollBehavior: CustomScrollBehavior(),
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -46,12 +45,4 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-}
-
-class CustomScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
 }
