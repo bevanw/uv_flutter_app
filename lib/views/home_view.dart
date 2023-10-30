@@ -39,7 +39,8 @@ class _HomeView extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UV'),
+        title: const Text('ultraviolet radiation'),
+        centerTitle: true,
       ),
       body: Center(
         child: _pages.elementAt(_currentPageIndex),
