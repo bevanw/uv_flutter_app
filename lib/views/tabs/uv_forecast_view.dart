@@ -66,9 +66,8 @@ class _UVForecastChartState extends State<UVForecastChart> {
 
   List<FlSpot> getChartSpots(List<UVIndex> data) {
     return data.asMap().entries.map((entry) {
-      final index = entry.key;
       final uvIndex = entry.value;
-      return FlSpot(index.toDouble(), uvIndex.index.toDouble());
+      return FlSpot(uvIndex.time.hour.toDouble(), uvIndex.index.toDouble());
     }).toList();
   }
 
@@ -79,24 +78,31 @@ class _UVForecastChartState extends State<UVForecastChart> {
         left: 60,
         right: 90,
         bottom: 40,
-        top: 70,
+        top: 40,
       ),
       child: Column(
         children: [
           Expanded(
             child: LineChart(
               LineChartData(
-                minX: 0,
                 minY: 0,
                 maxY: UVIndex.maxIndex.toDouble(),
-                titlesData: const FlTitlesData(
-                  rightTitles: AxisTitles(
+                titlesData: FlTitlesData(
+                  rightTitles: const AxisTitles(
                     axisNameSize: 20,
                     sideTitles: SideTitles(showTitles: false),
                   ),
-                  topTitles: AxisTitles(
+                  topTitles: const AxisTitles(
                     axisNameSize: 20,
                     sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        return Text("${value.toInt()}");
+                      },
+                    ),
                   ),
                 ),
                 gridData: const FlGridData(

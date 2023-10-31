@@ -57,7 +57,7 @@ class CircularGaugeChart extends StatelessWidget {
               Transform.rotate(
                 angle: -progressMaxLength * pi,
                 child: CustomPaint(
-                  painter: BackgroundGaugePainter(
+                  painter: ArcGaugePainter(
                     backgroundColor: progressBackgroundColor.withOpacity(0.2),
                     progressMaxLength: progressMaxLength,
                     strokeWidth: strokeWidth,
@@ -92,12 +92,12 @@ class CircularGaugeChart extends StatelessWidget {
   }
 }
 
-class BackgroundGaugePainter extends CustomPainter {
+class ArcGaugePainter extends CustomPainter {
   final Color backgroundColor;
   final double progressMaxLength;
   final double strokeWidth;
 
-  BackgroundGaugePainter({
+  ArcGaugePainter({
     required this.backgroundColor,
     required this.progressMaxLength,
     required this.strokeWidth,
@@ -117,7 +117,7 @@ class BackgroundGaugePainter extends CustomPainter {
     // Calculate the sweep angle based on the progress length.
     double sweepAngle = (360 * progressMaxLength) * pi / 180;
 
-    // Draw a curved line with rounded ends.
+    // Draw a curved line with rounded ends from 8am to 4pm.
     canvas.drawArc(rect, -pi / 2, sweepAngle, false, paint);
   }
 
