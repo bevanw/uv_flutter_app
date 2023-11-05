@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uv_flutter_app/providers/api_providers.dart';
 
 import '../apis/niwa/models/skye_types.dart';
+import '../routes.dart';
 import 'tabs/uv_index_view.dart';
 import 'tabs/uv_forecast_view.dart';
 
@@ -41,6 +42,15 @@ class _HomeView extends State<HomeView> {
       appBar: AppBar(
         title: const Text('ultraviolet radiation'),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.settings);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: _pages.elementAt(_currentPageIndex),

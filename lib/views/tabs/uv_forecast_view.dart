@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:uv_flutter_app/apis/niwa/models/skye_types.dart';
+import 'package:uv_flutter_app/constants/colors.dart';
 
 import '../../apis/niwa/models/uv_forecast.dart';
 import '../../apis/niwa/models/uv_index.dart';
@@ -75,8 +76,8 @@ class _UVForecastChartState extends State<UVForecastChart> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: 60,
-        right: 90,
+        left: 40,
+        right: 40,
         bottom: 40,
         top: 40,
       ),
@@ -89,11 +90,9 @@ class _UVForecastChartState extends State<UVForecastChart> {
                 maxY: UVIndex.maxIndex.toDouble(),
                 titlesData: FlTitlesData(
                   rightTitles: const AxisTitles(
-                    axisNameSize: 20,
                     sideTitles: SideTitles(showTitles: false),
                   ),
                   topTitles: const AxisTitles(
-                    axisNameSize: 20,
                     sideTitles: SideTitles(showTitles: false),
                   ),
                   bottomTitles: AxisTitles(
@@ -120,10 +119,10 @@ class _UVForecastChartState extends State<UVForecastChart> {
                         isCurved: true,
                         dotData: const FlDotData(show: false),
                         barWidth: 4,
-                        color: Colors.blue,
+                        color: AppColors.dark,
                         belowBarData: BarAreaData(
                           show: true,
-                          color: Colors.blue.withOpacity(0.3),
+                          color: AppColors.dark.withOpacity(0.3),
                         )),
                   if (skyTypeFilter == SkyTypes.cloudy)
                     LineChartBarData(
@@ -131,10 +130,10 @@ class _UVForecastChartState extends State<UVForecastChart> {
                         isCurved: true,
                         dotData: const FlDotData(show: false),
                         barWidth: 4,
-                        color: Colors.grey,
+                        color: AppColors.light,
                         belowBarData: BarAreaData(
                           show: true,
-                          color: Colors.grey.withOpacity(0.3),
+                          color: AppColors.light.withOpacity(0.3),
                         )),
                 ],
               ),

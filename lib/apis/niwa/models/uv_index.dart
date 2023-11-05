@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uv_flutter_app/constants/colors.dart';
 import 'package:xml/xml.dart';
 import 'package:xml/xpath.dart';
 
@@ -6,11 +7,11 @@ class UVIndex {
   final DateTime time;
   final num index;
 
-  static final UVRange low = UVRange(color: Colors.green, min: minIndex, max: 3);
-  static final UVRange moderate = UVRange(color: Colors.yellow, min: 4, max: 6);
-  static final UVRange high = UVRange(color: Colors.orange, min: 7, max: 8);
-  static final UVRange veryHigh = UVRange(color: Colors.red, min: 9, max: 11);
-  static final UVRange extreme = UVRange(color: Colors.purple, min: 12, max: maxIndex);
+  static final UVRange low = UVRange(color: AppColors.dark, min: minIndex, max: 3);
+  static final UVRange moderate = UVRange(color: AppColors.darkMedium, min: 4, max: 6);
+  static final UVRange high = UVRange(color: AppColors.middle, min: 7, max: 8);
+  static final UVRange veryHigh = UVRange(color: AppColors.lightMedium, min: 9, max: 11);
+  static final UVRange extreme = UVRange(color: AppColors.light, min: 12, max: maxIndex);
 
   static const num minIndex = 0;
   static const num maxIndex = 14;
