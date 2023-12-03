@@ -77,7 +77,7 @@ class _UVForecastChartState extends State<UVForecastChart> {
     return Padding(
       padding: const EdgeInsets.only(
         left: 40,
-        right: 40,
+        right: 50,
         bottom: 40,
         top: 40,
       ),
@@ -95,22 +95,38 @@ class _UVForecastChartState extends State<UVForecastChart> {
                   topTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
+                  leftTitles: const AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 30,
+                      interval: 3,
+                    ),
+                  ),
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
+                      interval: 2,
                       getTitlesWidget: (value, meta) {
-                        return Text("${value.toInt()}");
+                        return Text("${value.toInt()}:00");
                       },
                     ),
                   ),
                 ),
-                gridData: const FlGridData(
+                gridData: FlGridData(
                   show: true,
                   drawVerticalLine: false,
-                  horizontalInterval: 1,
+                  horizontalInterval: 3,
+                  drawHorizontalLine: true,
+                  getDrawingHorizontalLine: (value) {
+                    return const FlLine(
+                      color: AppColors.gridLines,
+                      strokeWidth: 2,
+                    );
+                  },
                 ),
                 borderData: FlBorderData(
-                  show: false,
+                  show: true,
+                  border: const Border.symmetric(horizontal: BorderSide(color: AppColors.gridLines, width: 2)),
                 ),
                 lineBarsData: [
                   if (skyTypeFilter == SkyTypes.clear)

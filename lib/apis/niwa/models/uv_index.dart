@@ -14,7 +14,7 @@ class UVIndex {
   static final UVRange extreme = UVRange(color: AppColors.light, min: 12, max: maxIndex);
 
   static const num minIndex = 0;
-  static const num maxIndex = 14;
+  static const num maxIndex = 15;
 
   UVIndex({
     required this.time,
