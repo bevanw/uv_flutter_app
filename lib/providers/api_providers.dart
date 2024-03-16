@@ -18,9 +18,6 @@ class UVParameters {
   });
 }
 
-/// How long to keep this alive before calling .close()?
-/// There doesn't seem to be any consensus..
-/// https://github.com/dart-lang/sdk/issues/21798
 final httpClientProvider = Provider<http.Client>((ref) => http.Client());
 
 final niwaApiServiceProvider = Provider<NiwaApiService>((ref) {

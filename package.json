@@ -1,17 +1,15 @@
 {
-    "dependencies": {
-    },
-    "devDependencies": {
-    },
-    "scripts": {
-      "Run Windows": "flutter run -d windows --dart-define-from-file=.env",
-      "Test": "flutter test --coverage",
-      "Clean": "flutter clean && rd /s /q coverage",
-      "Analyse": "flutter analyze",
-      "Upgrade Packages": "flutter pub upgrade",
-      "Sync Packages": "flutter pub get",
-      "Upgrade Flutter": "flutter upgrade",
-      "Verify Flutter Install": "flutter doctor"
-    }
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "Run Windows": "flutter run -d windows --dart-define-from-file=.env",
+    "Test": "flutter test --coverage",
+    "Clean": "flutter clean && rd /s /q coverage",
+    "Analyse": "flutter analyze",
+    "Upgrade Packages": "flutter pub upgrade",
+    "Sync Packages": "flutter pub get",
+    "Upgrade Flutter": "flutter upgrade",
+    "Find Latest Packages": "flutter pub outdated",
+    "Verify Flutter Install": "flutter doctor"
   }
-  
+}
