@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:uv_flutter_app/providers/api_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../apis/niwa/models/skye_types.dart';
+import '../providers/api_providers.dart';
 import '../routes.dart';
+import '../widgets/permission_icon.dart';
 import 'tabs/uv_index_view.dart';
 import 'tabs/uv_forecast_view.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeView();
+  ConsumerState<HomeView> createState() => _HomeView();
 }
 
-class _HomeView extends State<HomeView> {
+class _HomeView extends ConsumerState<HomeView> {
   int _currentPageIndex = 0;
   late UVParameters uvParameters;
 
@@ -42,9 +44,10 @@ class _HomeView extends State<HomeView> {
       appBar: AppBar(
         title: const Text('ultraviolet radiation'),
         centerTitle: true,
+        leading: const PermissionIcon(),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.settings_outlined),
             tooltip: 'Settings',
             onPressed: () {
               Navigator.pushNamed(context, Routes.settings);
@@ -60,11 +63,11 @@ class _HomeView extends State<HomeView> {
         onDestinationSelected: _setIndex,
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.home_filled),
+            icon: Icon(Icons.wb_sunny_outlined),
             label: 'Index',
           ),
           NavigationDestination(
-            icon: Icon(Icons.account_balance),
+            icon: Icon(Icons.sunny_snowing),
             label: 'Forecast',
           ),
         ],

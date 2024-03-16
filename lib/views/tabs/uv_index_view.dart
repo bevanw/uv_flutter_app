@@ -16,7 +16,7 @@ class UVIndexTab extends ConsumerStatefulWidget {
 class _UVIndexTab extends ConsumerState<UVIndexTab> {
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<UVIndex> uvIndexAsyncValue = ref.watch(uvIndexProvider(widget.uvParameters));
+    final uvIndexAsyncValue = ref.watch(uvIndexProvider(widget.uvParameters));
 
     return uvIndexAsyncValue.when(
       data: (uvIndex) {

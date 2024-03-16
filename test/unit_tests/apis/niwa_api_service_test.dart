@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:uv_flutter_app/apis/niwa/models/skye_types.dart';
 import 'package:uv_flutter_app/apis/niwa/models/uv_index.dart';
-import 'package:uv_flutter_app/apis/niwa/niwa_api_service.dart';
+import 'package:uv_flutter_app/apis/niwa/niwa_api.dart';
 import 'package:xml/xml.dart';
 
 void main() {
@@ -23,7 +23,7 @@ void main() {
         </svg>''').toString(), 200);
       });
 
-      final niwaApiService = NiwaApiService(clientMock, "");
+      final niwaApiService = NiwaApi(clientMock, "");
 
       final uvIndex = await niwaApiService.fetchUVIndex(1, 1, SkyTypes.cloudy);
 
@@ -43,7 +43,7 @@ void main() {
         </svg>''').toString(), 200);
       });
 
-      final niwaApiService = NiwaApiService(clientMock, "");
+      final niwaApiService = NiwaApi(clientMock, "");
 
       final uvIndex = await niwaApiService.fetchUVIndex(1, 1, SkyTypes.cloudy);
 
@@ -77,7 +77,7 @@ void main() {
             200);
       });
 
-      final niwaApiService = NiwaApiService(clientMock, "");
+      final niwaApiService = NiwaApi(clientMock, "");
 
       final uVForecast = await niwaApiService.fetchUVForecast(1, 1);
 
@@ -112,7 +112,7 @@ void main() {
             200);
       });
 
-      final niwaApiService = NiwaApiService(clientMock, "");
+      final niwaApiService = NiwaApi(clientMock, "");
 
       final uVForecast = await niwaApiService.fetchUVForecast(1, 1);
 

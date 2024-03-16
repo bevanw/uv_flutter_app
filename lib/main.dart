@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uv_flutter_app/constants/colors.dart';
 
+import 'constants/colors.dart';
 import 'views/home_view.dart';
 import 'routes.dart';
 import 'views/settings_view.dart';

@@ -8,11 +8,11 @@ import 'models/skye_types.dart';
 import 'models/uv_forecast.dart';
 import 'models/uv_index.dart';
 
-class NiwaApiService {
+class NiwaApi {
   final http.Client _httpClient;
   final String _apiKey;
 
-  NiwaApiService(this._httpClient, this._apiKey);
+  NiwaApi(this._httpClient, this._apiKey);
 
   /// Retrieves UV Index forecast for sunny/cloudy days using [latitude] and [longitude] postioning.
   ///

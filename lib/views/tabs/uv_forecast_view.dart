@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:uv_flutter_app/apis/niwa/models/skye_types.dart';
-import 'package:uv_flutter_app/constants/colors.dart';
 
-import '../../apis/niwa/models/uv_forecast.dart';
+import '../../apis/niwa/models/skye_types.dart';
 import '../../apis/niwa/models/uv_index.dart';
+import '../../constants/colors.dart';
 import '../../providers/api_providers.dart';
 import '../../widgets/selection_chip.dart';
 
@@ -20,7 +19,7 @@ class UVForecastTab extends ConsumerStatefulWidget {
 class _UVForecastTab extends ConsumerState<UVForecastTab> {
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<UVForecast> uvForecastAsyncValue = ref.watch(uvForecastProvider(widget.uvParameters));
+    final uvForecastAsyncValue = ref.watch(uvForecastProvider(widget.uvParameters));
 
     return uvForecastAsyncValue.when(
       data: (uvForecast) {

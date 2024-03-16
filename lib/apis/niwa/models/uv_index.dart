@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uv_flutter_app/constants/colors.dart';
 import 'package:xml/xml.dart';
 import 'package:xml/xpath.dart';
+
+import '../../../constants/colors.dart';
 
 class UVIndex {
   final DateTime time;
